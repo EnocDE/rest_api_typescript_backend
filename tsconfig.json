@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // Directorio de salida
+    "rootDir": "./src", // Directorio raiz
+    "lib": ["ESNext"],
+    "strict": false, // No permite los any
+    "sourceMap": true, // Asocia el codigo fuente original al cotigo compilado o transpilado
+    "esModuleInterop": true, // Interoperabilidad entre módulos de estilo CommonJS y módulos de estilo ECMAScript (ES6)
+    "declaration": true //Genera los archivos de declaraciones
+  },
+  "include": ["src/**/*.ts"]
+}

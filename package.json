@@ -1,0 +1,20 @@
+{
+  "name": "rest_api_node_ts_server",
+  "version": "1.0.0",
+  "description": "REST API con express y typescript",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts"
+  },
+  "author": "Enoc Dominguez",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
