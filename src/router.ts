@@ -5,7 +5,8 @@ import {
 	getProducts,
 	getProductById,
 	updateProduct,
-  updateAvailability,
+	updateAvailability,
+  deleteProduct,
 } from "./handlers/product";
 import { handleInputErrors } from "./middleware";
 const router = Router();
@@ -58,10 +59,20 @@ router.put(
 	updateProduct
 );
 
-router.patch("/:id", updateAvailability);
+router.patch(
+	"/:id",
+	param("id").isInt().withMessage("ID no válido"),
+	handleInputErrors,
+	updateAvailability
+);
 
-router.delete("/", (req, res) => {
-	res.send("Desde DELETE");
-});
+router.delete(
+	"/:id",
+	param("id").isInt().withMessage("ID no válido"),
+	handleInputErrors,
+  deleteProduct
+);
+
+
 
 export default router;
