@@ -1,40 +1,68 @@
 import { Router } from "express";
-import { body, check, validationResult } from "express-validator";
-import { createProduct, getProducts } from "./handlers/product";
+import { body, param } from "express-validator";
+import {
+	createProduct,
+	getProducts,
+	getProductById,
+	updateProduct,
+} from "./handlers/product";
 import { handleInputErrors } from "./middleware";
-const router = Router()
+const router = Router();
 
 //routing
 router.get("/", getProducts);
 
-router.post("/", 
-
-  // Validación # Check se usa en funciones async y body en funciones que no lo sn
-   body('name')
-  .notEmpty().withMessage('El nombre de producto no puede ir vacio'),
-
-
-   body('price')
-  .notEmpty().withMessage('El precio de producto no puede ir vacio')
-  .isNumeric().withMessage('Valor no válido')
-  .custom(value => value > 0).withMessage('Precio no válido'),
-  handleInputErrors,
-  createProduct
+router.get(
+	"/:id",
+	param("id").isInt().withMessage("ID no válido"),
+	handleInputErrors,
+	getProductById
 );
 
-router.put("/", (req, res) => {
-	
-	res.send('Desde PUT');
-});
+router.post(
+	"/",
+
+	// Validación # Check se usa en funciones async y body en funciones que no lo sn
+	body("name")
+		.notEmpty()
+		.withMessage("El nombre de producto no puede ir vacio"),
+	body("price")
+		.notEmpty()
+		.withMessage("El precio de producto no puede ir vacio")
+		.isNumeric()
+		.withMessage("Valor no válido")
+		.custom((value) => value > 0)
+		.withMessage("Precio no válido"),
+	handleInputErrors,
+	createProduct
+);
+
+router.put(
+	"/:id",
+	param("id").isInt().withMessage("ID no válido"),
+	body("name")
+		.notEmpty()
+		.withMessage("El nombre de producto no puede ir vacio"),
+	body("price")
+		.notEmpty()
+		.withMessage("El precio de producto no puede ir vacio")
+		.isNumeric()
+		.withMessage("Valor no válido")
+		.custom((value) => value > 0)
+		.withMessage("Precio no válido"),
+	body("availability")
+		.isBoolean()
+		.withMessage("Valor para disponibilidad no válido"),
+	handleInputErrors,
+	updateProduct
+);
 
 router.patch("/", (req, res) => {
-	
-	res.send('Desde PATCH');
+	res.send("Desde PATCH");
 });
 
 router.delete("/", (req, res) => {
-	
-	res.send('Desde DELETE');
+	res.send("Desde DELETE");
 });
 
-export default router
+export default router;
