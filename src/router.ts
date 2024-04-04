@@ -5,6 +5,7 @@ import {
 	getProducts,
 	getProductById,
 	updateProduct,
+  updateAvailability,
 } from "./handlers/product";
 import { handleInputErrors } from "./middleware";
 const router = Router();
@@ -57,9 +58,7 @@ router.put(
 	updateProduct
 );
 
-router.patch("/", (req, res) => {
-	res.send("Desde PATCH");
-});
+router.patch("/:id", updateAvailability);
 
 router.delete("/", (req, res) => {
 	res.send("Desde DELETE");
