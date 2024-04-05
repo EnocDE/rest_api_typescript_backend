@@ -4,7 +4,7 @@ import db from "./config/db";
 import colors from "colors";
 
 // Conectar base de datos
-async function connectDB() {
+export async function connectDB() {
   try {
     await db.authenticate()
     db.sync()
@@ -13,7 +13,6 @@ async function connectDB() {
   } catch (error) {
     console.log(colors.bgRed(error));
     console.log(colors.bgYellow('Hubo un error al conectar a la base de datos'));
-
   }
 }
 connectDB();
@@ -24,11 +23,6 @@ const server = express();
 // Leer datos de formularios
 server.use(express.json())
 
-
 server.use('/api/products', router)
-
-server.get('/api', (req, res) => {
-  res.json({msg: "desde api"})
-})
 
 export default server;

@@ -1,17 +1,17 @@
-import request from "supertest";
-import server from "../server"
+import db from "../config/db";
+import { connectDB } from "../server";
 
-describe('GET /api', () => {
-  test('should send back a json response', async () => {
-    const res = await request(server).get('/api')
+jest.mock('../config/db')
 
-    // Lo que debe obtener
-    expect(res.status).toBe(200)
-    expect(res.headers['content-type']).toMatch(/json/)
-    expect(res.body.msg).toBe('desde api')
+describe("connectDB", () => {
+  test("should handle database connection error", async () => {
+    jest.spyOn(db, 'authenticate').mockRejectedValueOnce(new Error('Hubo un error al conectar a la base de datos'))
+    const consoleSpy = jest.spyOn(console, "log")
 
-    // Lo que no debe obtener
-    expect(res.status).not.toBe(404)
-    expect(res.body.msg).not.toBe('Desde API')
+    await connectDB()
+
+    expect(consoleSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Hubo un error al conectar a la base de datos')
+    )
   })
 })
