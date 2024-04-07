@@ -4,7 +4,7 @@ import colors from "colors";
 
 export const getProducts = async (req: Request, res: Response) => {
 	const products = await Product.findAll({
-		order: [["price", "DESC"]],
+		order: [["id", "DESC"]],
 	});
 	res.json({ data: products });
 };
